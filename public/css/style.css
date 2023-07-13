@@ -1,0 +1,95 @@
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400&family=Ubuntu:wght@300&display=swap');
+
+
+*{
+    text-decoration: none;
+    border: none;
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
+}
+body{
+    margin: 20px;
+}
+.title{
+    font-size: 30px;
+    text-align: center;
+    margin: 20px;
+}
+.logo{
+    text-align: center;
+}
+.dados{
+    border: 1px solid black;
+    border-radius: 5px;
+}
+#valorDiaria, #dataEntrada, #dataSaida, #nomePaciente,#idPaciente{
+    padding: 1%;
+    margin: 1.5rem;
+    font-size: 15px;
+    text-align: center;
+}
+.btn-calcular, .btn-imprimir{
+    background-color:#E3371E;
+    font-size: 30px;
+    margin-top: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+}
+.btn-imprimir{
+    background-color: #007bff;
+}
+.logoImprimir{
+    display: none;
+}
+#assinatura{
+    display: none;
+}
+.alert-danger{
+    background-color: #f8d7da;
+    margin: 10px;
+    border: 1px solid #f8d7da ;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    .logoImprimir{
+        display: block;
+    }
+    .logo-sus{
+        width: 200px;
+        margin-left: 400px;
+    }
+    .logo-sus{
+        width: 200px;
+        
+    }
+    .titulo-imprimir{
+        text-align: center;
+        width: 80vh;
+        margin: 50px 50px;
+        font-size: 30px;
+    }
+    #assinatura{
+        margin-top: 600px;
+        display: inline-block;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .print-section, .print-section * {
+        visibility: visible;
+    }
+    .print-section {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    #nome,#printTipoAlta,#id, #printValorDiaria, #printDataEntrada,#printDataSaida,#printValorTotal, #numeroDiarias,#valorTotal,#assinatura{
+        font-size: 20px;
+    }
+}

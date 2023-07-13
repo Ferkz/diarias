@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel=icon type=imagex-icon href="../public/img/favicon.png">
+    <link rel="stylesheet" href="../public/css/style.css">
+    <title>Calculo de Despesas SUS</title>
+ </head>
+<body>
+    <h1 class="title">Calculo de Despesas Hospitalares</h1>
+    <div class="logo">
+        <img  src="../public/img/logo.png" alt="">
+    </div>
+    <div class="container">
+    <div class="erro"></div>
+    <div class="dados">
+        
+        <label for="nomePaciente">Nome Paciente:</label>
+        <input type="text" id="nomePaciente" placeholder="Nome Paciente">
+        <label for="id">Número de Prontuário</label>
+        <input type="text" id="idPaciente"placeholder="número prontuário">    
+        <label for="valorDiaria">Valor da Diária:</label>
+        <input type="number" id="valorDiaria" placeholder="Digite o valor da diária" required>
+        <label for="dataEntrada">Data de Entrada:</label>
+        <input type="date" id="dataEntrada" required>
+        <label for="dataSaida">Data de Saída:</label>
+        <input type="date" id="dataSaida" required>
+        <label for="">Tipo de Alta</label>
+        <select name="Tipo-alta" id="tipoAlta">
+            <option value=""></option>
+            <option value="obito">Obito</option>
+            <option value="transferencia">transferência</option>
+            <option value="alta-hospitalar">Alta Hospitalar</option>
+            <option value="A Pedido">A pedido</option>
+            <option value="administrativa">Administrativa</option>
+            <option value="evasao">Evasão</option>
+            <option value="doador-de-orgao">Permanência para doação de orgãos</option>
+        </select>
+    </div>
+            <button onclick="calcularDiaria()" class="btn-calcular">Calcular Valor</button>
+    
+    <div class="print-section">
+        <div class="logoImprimir">
+            <img  src="../public/img/logo.png" class="logo-samar" alt="">
+            <img src="/public/img/sus-logo.png" class="logo-sus" alt="">
+        </div>
+        <p class="titulo-imprimir">DEMONSTRATIVO DE DESPESAS</p>
+
+        <p id="nome"></p>
+        <p id="id"></p>
+        <p id="printTipoAlta"></p>
+        <p id="printValorDiaria"></p>
+        <p id="printDataEntrada"></p>
+        <p id="printDataSaida"></p>
+        <p id="printValorTotal"></p>
+        <p id="numeroDiarias"></p>
+        <p id="valorTotal"></p>
+        <p id="assinatura"></p>
+    </div>
+    <button onclick="imprimirPagina()" class="btn-imprimir">Imprimir</button>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+<script src="/script.js"></script>
+</body>
+</html>
