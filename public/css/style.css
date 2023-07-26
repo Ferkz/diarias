@@ -7,48 +7,76 @@
     font-family: 'Roboto', sans-serif;
     font-family: 'Ubuntu', sans-serif;
 }
-body{
-    margin: 20px;
-}
 .title{
     font-size: 30px;
     text-align: center;
     margin: 20px;
+    font-weight: bold;
 }
 .logo{
     text-align: center;
 }
 .dados{
-    border: 1px solid black;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+
+}
+.card, .card-body{
+    padding:5px;
+    margin: 10px 5px 5px 0;
+
+}
+#nomePaciente,#tipoAlta, #idPaciente, #valorDiaria {
+    margin: 20px 30px 0 0;
+    padding: 20px;
+    background-color: #d4edda;   
+    outline: none;
     border-radius: 5px;
 }
-#valorDiaria, #dataEntrada, #dataSaida, #nomePaciente,#idPaciente{
-    padding: 1%;
-    margin: 1.5rem;
-    font-size: 15px;
+.grip-layout{
+    display: flex;
+    flex-wrap: wrap;
     text-align: center;
 }
-.btn-calcular, .btn-imprimir{
-    background-color:#E3371E;
-    font-size: 30px;
-    margin-top: 20px;
-    border: 1px solid black;
-    border-radius: 5px;
+
+.btn-calcular, .btn-imprimir, .btn-parametros{
     cursor: pointer;
-    color: white;
+    font-size: 20px;
 }
-.btn-imprimir{
-    background-color: #007bff;
-}
+
 .logoImprimir{
     display: none;
+}
+.titulo-parametros{
+    font-weight: 400;
+    font-size: 25px;
+}
+.parametros{
+    text-align: center;
+    border-radius: 5px;
+    width: 400px;
+}
+.texto-diaria, .texto-cidade{
+    text-align: left;
+    margin: 10px;
+}
+.parametros::backdrop{
+    background-color: rgb(0 0 0 /0.9);
 }
 #assinatura{
     display: none;
 }
 .alert-danger{
     background-color: #f8d7da;
-    margin: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #f8d7da ;
+    border-radius: 5px;
+    padding: 5px;
+}
+.alert-sucess{
+    background-color:#d4edda;
+    margin-bottom: 10px;
     border: 1px solid #f8d7da ;
     border-radius: 5px;
     padding: 5px;
@@ -76,7 +104,7 @@ body{
         font-size: 30px;
     }
     #assinatura{
-        margin-top: 600px;
+        margin-top: 500px;
         display: inline-block;
         flex-direction: column;
         justify-content: space-between;
@@ -89,7 +117,7 @@ body{
         left: 0;
         top: 0;
     }
-    #nome,#printTipoAlta,#id, #printValorDiaria, #printDataEntrada,#printDataSaida,#printValorTotal, #numeroDiarias,#valorTotal,#assinatura{
+    #nome,#printTipoAlta,#id, #printValorDiaria, #printDataEntrada,#printHoraEntrada,#printDataSaida,#printHoraSaida,#printValorTotal, #numeroDiarias,#valorTotal,#assinatura{
         font-size: 20px;
     }
 }

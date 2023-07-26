@@ -1,63 +1,115 @@
+
 function calcularDiaria() {
     const nome = document.getElementById("nomePaciente").value;
     const id = document.getElementById("idPaciente").value;
     const valorDiaria = parseFloat(document.getElementById("valorDiaria").value);
     const dataEntrada = (document.getElementById("dataEntrada").value);
+    const horaEntrada = (document.getElementById("horaEntrada").value)
     const dataSaida = (document.getElementById("dataSaida").value);
+    const horaSaida = (document.getElementById("horaSaida").value)
     const tipoAlta = document.getElementById("tipoAlta").value;
-    const erros = []
+ 
 
-    if (!nome.value || nome.value === undefined || nome.value ===null ){
-        validaCampo(nome,"Campo nome está vazio!!");
-    }
-    if (!id.value || id.value === undefined || id.value === null){
-        validaCampo(id,"Número de prontuário não pode estar vazio");
-    }
-   function validaCampo(input, texto){
-        const exibirErro =  document.querySelector(".erro");
-        exibirErro.classList.add("alert-danger")
-        exibirErro.innerText = texto
-
-      
-
+    if(!validarCampos(nome,id,valorDiaria,dataEntrada,dataSaida,tipoAlta)){
+    return 
    }
-
-
-    function dateFormater(dateHour){
-        const [ano,mm, dd] = dateHour.split('-')
-        const newDate = new Date(ano,mm -1,dd)
-        return newDate.getTime();
-    }
-    function dataParaTexto (data){
-        const [ ano, mes, dia] = data.split('-');
-        const dataFormatada = `${dia}/${mes}/${ano}`
-        return dataFormatada
-    }
-    
     const tempoInternado = (dateFormater(dataSaida) - dateFormater(dataEntrada)) /1000;
     const diaParaSegundo = 24* 60*60;
     let dias = Math.floor(tempoInternado / diaParaSegundo) ;
-    console.log(tipoAlta);
- 
+     
     if (tipoAlta === "obito" || tipoAlta === "transferencia") {
         dias += 1;
-        console.log(dias);
     }
     const valorTotal = valorDiaria * dias;
 
-   
-  
-    document.getElementById("valorTotal").innerHTML = `Valor Total:.......... R$ ${valorTotal.toFixed(2)}`;
-    document.getElementById("nome").innerHTML = `Nome Paciente:.......... ${nome}`
-    document.getElementById("id").innerHTML = `Número de Prontuário:.......... ${id}`
-    document.getElementById("printTipoAlta").innerHTML = "Tipo de Alta: " + tipoAlta;
-    document.getElementById("printValorDiaria").innerHTML = `Valor da Diária:.......... R$ ${valorDiaria.toFixed(2)}`;
-    document.getElementById("printDataEntrada").innerHTML = `Data Entrada:.......... ${dataParaTexto(dataEntrada)}`
-    document.getElementById("printDataSaida").innerHTML = `Data de Saída:.......... ${dataParaTexto(dataSaida)}`
-    document.getElementById("numeroDiarias").innerHTML = `Número diarias:.......... ${dias}`
+    document.getElementById("valorTotal").innerHTML = `Valor Total.......... : R$ ${valorTotal.toFixed(2)}`;
+    document.getElementById("nome").innerHTML = `Nome Paciente............ : ${nome}`
+    document.getElementById("id").innerHTML = `Número de Prontuário.......... : ${id}`
+    document.getElementById("printTipoAlta").innerHTML = "Tipo de Alta........... : " + tipoAlta;
+    document.getElementById("printValorDiaria").innerHTML = `Valor da Diária.......... : R$ ${valorDiaria.toFixed(2)}`;
+    document.getElementById("printDataEntrada").innerHTML = `Data Entrada.......... : ${dataParaTexto(dataEntrada)}`
+    document.getElementById("printHoraEntrada").innerHTML = `Hora de entrada.......... : ${horaEntrada}`
+    document.getElementById("printDataSaida").innerHTML = `Data de Saída.......... : ${dataParaTexto(dataSaida)}`
+    document.getElementById("printHoraSaida").innerHTML= `Hora de Saída......... : ${horaSaida}`
+    document.getElementById("numeroDiarias").innerHTML = `Número diarias.......... : ${dias}`
     document.getElementById("assinatura").innerText = "Assinatura:_________________________________________________________"
 }
-
 function imprimirPagina() {
     window.print();
 }
+function dataParaTexto (data){
+    const [ ano, mes, dia] = data.split('-');
+    const dataFormatada = `${dia}/${mes}/${ano}`
+    return dataFormatada
+}
+function dateFormater(dateHour){
+    const [ano,mm, dd] = dateHour.split('-')
+    const newDate = new Date(ano,mm -1,dd)
+    return newDate.getTime();
+}
+function validarCampos(nome,id,valorDiaria,dataEntrada,dataSaida,tipoAlta) {
+    const camposFaltantes = [];
+    const message = document.querySelector(".erro");
+    if(!dataValida(dataParaTexto(dataEntrada))){
+        camposFaltantes.push("Informe uma data Valida")
+    }
+    if(!dataValida(dataParaTexto(dataSaida))){
+        camposFaltantes.push("Informe uma data Valida")
+    }
+    if(nome ===""){
+        camposFaltantes.push("Informe o nome")
+    }
+    if(id===""){
+        camposFaltantes.push("Número de prontuário")
+    }
+    if (valorDiaria === "") {
+        camposFaltantes.push("Valor da Diária");
+    }
+    if (dataEntrada === "") {
+        camposFaltantes.push("Data de Entrada");
+    }
+    if (dataSaida === "") {
+        camposFaltantes.push("Data de Saída");
+    }
+    if(tipoAlta ===""){
+        camposFaltantes.push("Tipo de alta")
+    }
+    if(horaEntrada===""){
+        camposFaltantes.push("Hora de entrada")
+    }
+    if(horaSaida==="")[
+        camposFaltantes.push("Hora de saida")
+    ]
+    if (camposFaltantes.length > 0) {
+        message.classList.add("alert-danger")
+        message.innerText = `Por favor, preencha o(s) campo(s) obrigatório(s): ${camposFaltantes.join(", ")}`
+        return false;
+    }
+    if(camposFaltantes.length <=0){
+        message.classList.add("alert-sucess")
+        message.innerText = "Consulta realizada com sucesso!!"
+    }
+
+    return true;
+}
+function dataValida(e){
+    let data = e
+    console.log(data);
+    const validaData = new RegExp(/^[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}$/)
+    const result = validaData.test(data)
+    if(result){
+        return true
+    }
+    return false
+}
+const btnParametros = document.querySelector(".btn-parametros")
+const parametros = document.querySelector("dialog")
+const salvar = document.querySelector(".btn-salvar")
+const cancelar = document.querySelector(".btn-cancelar")
+
+btnParametros.addEventListener("click", ()=>{
+    parametros.showModal()
+});
+cancelar.addEventListener("click",()=>{
+    parametros.close()
+})
