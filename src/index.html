@@ -61,11 +61,14 @@
             <button onclick="calcularDiaria()" class="btn-calcular btn btn-primary">Calcular Valor</button>
             <button class="btn btn-primary btn-parametros">Parametros</button>
             <dialog class="parametros">
-                <p class="titulo-parametros">Digite os Parametros</p>
-                <label for="">Digite o valor da diaria</label>
-                <input type="text" placeholder="valor da diaria..." class="texto-diaria"><br>
-                <label for="">Informe a cidade</label>
-                <input type="text" placeholder="Informe a cidade..." class="texto-cidade">
+                <p class="titulo-parametros">Informe os Parametros</p>
+                <div class="valores-input">
+                    <label for="">Digite o valor da diaria:</label>
+                    <input type="text" placeholder="valor da diaria...R$" class="texto-diaria" required>
+                    <label for="">Informe a cidade:</label>
+                    <input type="text" placeholder="Informe a cidade..." class="texto-cidade">
+                </div>
+                
                 <button class="btn btn-primary btn-salvar">Salvar</button>
                 <div class="btn-cancelar btn btn-danger">Cancelar</div>
             </dialog>

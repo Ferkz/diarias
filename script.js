@@ -1,8 +1,27 @@
+const btnParametros = document.querySelector(".btn-parametros")
+const parametros = document.querySelector("dialog")
+const salvar = document.querySelector(".btn-salvar")
+const cancelar = document.querySelector(".btn-cancelar")
+
+btnParametros.addEventListener("click", ()=>{
+    parametros.showModal()
+});
+cancelar.addEventListener("click",()=>{
+    parametros.close()
+})
+
+salvar.addEventListener("click",()=>{
+    const diaria = parseFloat(document.querySelector(".texto-diaria").value);
+    localStorage.setItem('valorDiaria',diaria)
+    diaria.innerText = localStorage.getItem('valorDiaria')
+    parametros.close();
+})
+   
 
 function calcularDiaria() {
     const nome = document.getElementById("nomePaciente").value;
     const id = document.getElementById("idPaciente").value;
-    const valorDiaria = parseFloat(document.getElementById("valorDiaria").value);
+    const valorDiaria = localStorage.getItem('valorDiaria')
     const dataEntrada = (document.getElementById("dataEntrada").value);
     const horaEntrada = (document.getElementById("horaEntrada").value)
     const dataSaida = (document.getElementById("dataSaida").value);
@@ -10,7 +29,7 @@ function calcularDiaria() {
     const tipoAlta = document.getElementById("tipoAlta").value;
  
 
-    if(!validarCampos(nome,id,valorDiaria,dataEntrada,dataSaida,tipoAlta)){
+    if(!validarCampos(nome,id,dataEntrada,dataSaida,tipoAlta,horaEntrada,horaSaida)){
     return 
    }
     const tempoInternado = (dateFormater(dataSaida) - dateFormater(dataEntrada)) /1000;
@@ -22,16 +41,17 @@ function calcularDiaria() {
     }
     const valorTotal = valorDiaria * dias;
 
-    document.getElementById("valorTotal").innerHTML = `Valor Total.......... : R$ ${valorTotal.toFixed(2)}`;
+    
     document.getElementById("nome").innerHTML = `Nome Paciente............ : ${nome}`
     document.getElementById("id").innerHTML = `Número de Prontuário.......... : ${id}`
     document.getElementById("printTipoAlta").innerHTML = "Tipo de Alta........... : " + tipoAlta;
-    document.getElementById("printValorDiaria").innerHTML = `Valor da Diária.......... : R$ ${valorDiaria.toFixed(2)}`;
+    document.getElementById("printValorDiaria").innerHTML = `Valor da Diária.......... : R$ ${valorDiaria},00`;
     document.getElementById("printDataEntrada").innerHTML = `Data Entrada.......... : ${dataParaTexto(dataEntrada)}`
     document.getElementById("printHoraEntrada").innerHTML = `Hora de entrada.......... : ${horaEntrada}`
     document.getElementById("printDataSaida").innerHTML = `Data de Saída.......... : ${dataParaTexto(dataSaida)}`
     document.getElementById("printHoraSaida").innerHTML= `Hora de Saída......... : ${horaSaida}`
     document.getElementById("numeroDiarias").innerHTML = `Número diarias.......... : ${dias}`
+    document.getElementById("valorTotal").innerHTML = `Valor Total.......... : R$ ${valorTotal.toFixed(2)}`;
     document.getElementById("assinatura").innerText = "Assinatura:_________________________________________________________"
 }
 function imprimirPagina() {
@@ -47,7 +67,7 @@ function dateFormater(dateHour){
     const newDate = new Date(ano,mm -1,dd)
     return newDate.getTime();
 }
-function validarCampos(nome,id,valorDiaria,dataEntrada,dataSaida,tipoAlta) {
+function validarCampos(nome,id,dataEntrada,dataSaida,tipoAlta,horaEntrada,horaSaida) {
     const camposFaltantes = [];
     const message = document.querySelector(".erro");
     if(!dataValida(dataParaTexto(dataEntrada))){
@@ -62,9 +82,6 @@ function validarCampos(nome,id,valorDiaria,dataEntrada,dataSaida,tipoAlta) {
     if(id===""){
         camposFaltantes.push("Número de prontuário")
     }
-    if (valorDiaria === "") {
-        camposFaltantes.push("Valor da Diária");
-    }
     if (dataEntrada === "") {
         camposFaltantes.push("Data de Entrada");
     }
@@ -78,7 +95,7 @@ function validarCampos(nome,id,valorDiaria,dataEntrada,dataSaida,tipoAlta) {
         camposFaltantes.push("Hora de entrada")
     }
     if(horaSaida==="")[
-        camposFaltantes.push("Hora de saida")
+        camposFaltantes.push("Hora de saída")
     ]
     if (camposFaltantes.length > 0) {
         message.classList.add("alert-danger")
@@ -102,14 +119,3 @@ function dataValida(e){
     }
     return false
 }
-const btnParametros = document.querySelector(".btn-parametros")
-const parametros = document.querySelector("dialog")
-const salvar = document.querySelector(".btn-salvar")
-const cancelar = document.querySelector(".btn-cancelar")
-
-btnParametros.addEventListener("click", ()=>{
-    parametros.showModal()
-});
-cancelar.addEventListener("click",()=>{
-    parametros.close()
-})

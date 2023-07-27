@@ -49,7 +49,7 @@
     display: none;
 }
 .titulo-parametros{
-    font-weight: 400;
+    font-weight: bold;
     font-size: 25px;
 }
 .parametros{
@@ -57,12 +57,25 @@
     border-radius: 5px;
     width: 400px;
 }
-.texto-diaria, .texto-cidade{
+.valores-input{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
     text-align: left;
-    margin: 10px;
+    font-size: 20px;
+}
+.texto-diaria, .texto-cidade{
+    background-color: #d4edda ; 
+    margin-top: 10px;
+}
+.texto-diaria::before{
+    padding: 1rem;
+}
+.btn-salvar{
+    margin: 20px;
 }
 .parametros::backdrop{
-    background-color: rgb(0 0 0 /0.9);
+    background-color: rgba(10, 10, 10, 0.9);
 }
 #assinatura{
     display: none;
