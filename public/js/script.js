@@ -3,28 +3,26 @@ const parametros = document.querySelector("dialog")
 const salvar = document.querySelector(".btn-salvar")
 const cancelar = document.querySelector(".btn-cancelar")
 
-
 btnParametros.addEventListener("click", ()=>{
     parametros.showModal()
 });
+
 cancelar.addEventListener("click",()=>{
     parametros.close()
 })
 
 salvar.addEventListener("click",()=>{
-    const diaria = parseFloat(document.querySelector(".texto-diaria").value);
-    localStorage.setItem('valorDiaria',diaria)
-    const pegarValorDiaria = localStorage.getItem("valorDiaria")
-    diaria.innerText = pegarValorDiaria
-
     parametros.close();
 })
-   
-
+function formataValor(valor){
+    const valorFormatado = Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(valor)
+    return valorFormatado
+}
 function calcularDiaria() {
     const nome = document.getElementById("nomePaciente").value;
     const id = document.getElementById("idPaciente").value;
-    const valorDiaria = localStorage.getItem('valorDiaria')
+    const pegarDiaria = localStorage.getItem('valorDiaria')
+    const valorDiaria = parseInt(pegarDiaria.replace(/[.,]/g , ''))
     const dataEntrada = (document.getElementById("dataEntrada").value);
     const horaEntrada = (document.getElementById("horaEntrada").value)
     const dataSaida = (document.getElementById("dataSaida").value);
@@ -39,23 +37,22 @@ function calcularDiaria() {
     const diaParaSegundo = 24* 60*60;
     let dias = Math.floor(tempoInternado / diaParaSegundo) ;
      
-    if (tipoAlta === "Obito" || tipoAlta === "Transferencia") {
+    if (tipoAlta === "Obito" || tipoAlta === "Transferência") {
         dias += 1;
     }
-    const valorTotal = valorDiaria * dias;
-    
+    const valorTotal = valorDiaria * dias /100;
+    const total = formataValor(valorTotal)
 
-    
     document.getElementById("nome").innerHTML = `Nome Paciente............ : ${nome}`
     document.getElementById("id").innerHTML = `Número de Prontuário.......... : ${id}`
     document.getElementById("printTipoAlta").innerHTML = "Tipo de Alta........... : " + tipoAlta;
-    document.getElementById("printValorDiaria").innerHTML = `Valor da Diária.......... : ${formataValor(valorDiaria)}`;
+    document.getElementById("printValorDiaria").innerHTML = `Valor da Diária.......... : R$ ${pegarDiaria}`;
     document.getElementById("printDataEntrada").innerHTML = `Data Entrada.......... : ${dataParaTexto(dataEntrada)}`
     document.getElementById("printHoraEntrada").innerHTML = `Hora de entrada.......... : ${horaEntrada}`
     document.getElementById("printDataSaida").innerHTML = `Data de Saída.......... : ${dataParaTexto(dataSaida)}`
     document.getElementById("printHoraSaida").innerHTML= `Hora de Saída......... : ${horaSaida}`
     document.getElementById("numeroDiarias").innerHTML = `Número diarias.......... : ${dias}`
-    document.getElementById("valorTotal").innerHTML = `Valor Total.......... : ${formataValor(valorTotal)}`;
+    document.getElementById("valorTotal").innerHTML = `Valor Total.......... : ${total}`;
     document.getElementById("assinatura").innerText = "Assinatura:_________________________________________________________"
 }
 function imprimirPagina() {
@@ -133,7 +130,24 @@ function dataValida(e){
     }
     return false
 }
-function formataValor(valor){
-    const valorFormatado = Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(valor)
-    return valorFormatado
+
+
+function formatarMoeda() {
+    var diariaInput = document.querySelector('.texto-diaria');
+    var valor = diariaInput.value;
+   
+    valor = valor + '';
+    valor = parseInt(valor.replace(/[\D]+/g, ''));
+    valor = valor + '';
+    valor = valor.replace(/([0-9]{2})$/g, ",$1");
+
+    if (valor.length > 6) {
+        valor = valor.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
+    }
+    localStorage.setItem('valorDiaria',valor)
+    const pegarValorDiaria = localStorage.getItem("valorDiaria")
+    console.log(pegarValorDiaria);
+    console.log(valor);
+    diariaInput.value  = pegarValorDiaria
+    if(valor == 'NaN') diariaInput.value = '';
 }

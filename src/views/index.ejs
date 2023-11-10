@@ -7,10 +7,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculo de Despesas SUS</title>
+    <title>Cálculo de Despesas SUS</title>
  </head>
 <body>
-    <h1 class="title">Calculo de Despesas Hospitalares</h1>
+    <h1 class="title">Cálculo de Despesas Hospitalares</h1>
     <div class="logo">
         <img  src="/img/logo.png" alt="">
     </div>
@@ -25,11 +25,11 @@
         <select name="Tipo-alta" id="tipoAlta" class="col-sm-8">
             <option value="Obito">Obito</option>
             <option value="Transferência">Transferência</option>
-            <option value="alta-hospitalar">Alta Hospitalar</option>
+            <option value="Alta-hospitalar">Alta Hospitalar</option>
             <option value="A Pedido">A pedido</option>
             <option value="Administrativa">Administrativa</option>
-            <option value="evasao">Evasão</option>
-            <option value="doador-de-orgao">Permanência para doação de orgãos</option>
+            <option value="Evasao">Evasão</option>
+            <option value="Doador-de-orgao">Permanência para doação de orgãos</option>
         </select>
         <div class="grip-layout">
             <div class="card">
@@ -62,13 +62,13 @@
     </div>
     </div>
             <button onclick="calcularDiaria()" class="btn-calcular btn btn-primary">Calcular Valor</button>
-            <button class="btn btn-primary btn-parametros">Parametros</button>
+            <button class="btn btn-primary btn-parametros">Parâmetros</button>
             <dialog class="parametros">
-                <p class="titulo-parametros">Informe os Parametros</p>
+                <p class="titulo-parametros">Informe os Parâmetros</p>
                 <div class="valores-input">
-                    <label for="">Digite o valor da diaria:</label>
-                    <input type="text" placeholder="valor da diaria...R$" class="texto-diaria" required>
-                    <label for="">Informe a cidade:</label>
+                    <label for="">Digite o valor da diaria: </label>                
+                    <input type="text" placeholder="valor da diaria..." class="texto-diaria" required onkeyup="formatarMoeda()">
+                    <label for="">Informe a cidade: </label>
                     <input type="text" placeholder="Informe a cidade..." class="texto-cidade">
                 </div>
                 
